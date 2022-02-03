@@ -35,7 +35,7 @@ const updateValue = () => {
 };
 
 const clickClear = () => {
-  search.value = "";
+  search.value = null;
   emit("on:click");
 };
 </script>

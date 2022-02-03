@@ -40,7 +40,9 @@ const usePokemonStore = defineStore("pokemonStore", {
   actions: {
     async getPokemons(): Promise<void> | never {
       try {
+        this.isLoading = true;
         const pokemons = localStorage.getItem("pokemons");
+
         if (pokemons) {
           console.log("Pokemons desde LocalStorage");
           this.pokemons = JSON.parse(pokemons);
@@ -49,7 +51,9 @@ const usePokemonStore = defineStore("pokemonStore", {
           this.pokemons = await getPokemons();
           localStorage.setItem("pokemons", JSON.stringify(this.pokemons));
         }
+
         this.pokemonPagination = paginatePokemons([...this.pokemons]);
+        this.isLoading = false;
       } catch (error) {
         localStorage.removeItem("pokemons");
         console.error(error);
