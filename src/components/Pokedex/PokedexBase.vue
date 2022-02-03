@@ -1,24 +1,7 @@
 <template>
   <div class="flex flex-col md:flex-row">
     <div class="basis-full">
-      <div class="relative mx-auto py-2">
-        <div class="flex flex-col sm:flex-row sm:justify-center">
-          <input
-            type="text"
-            placeholder="Mínimo 3 caracteres"
-            class="rounded-lg px-4 py-2"
-            v-model="pokemonSearch"
-          />
-          <span class="mx-1 mt-1 sm:mt-0"></span>
-          <button
-            type="button"
-            class="rounded-lg bg-gray-700 px-3 py-2 text-sm font-medium text-white hover:bg-gray-800"
-            @click="resetSearch"
-          >
-            Reset
-          </button>
-        </div>
-      </div>
+      <PokedexSearch @on:change="inputUpdated" @on:click="resetSearch" />
 
       <div class="relative mx-auto py-2">
         <div class="flex justify-center">
@@ -48,9 +31,10 @@ import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 import PokedexList from "./PokedexList.vue";
+import PokedexSearch from "./PokedexSearch.vue";
 import { usePokemonHook } from "@/composables/usePokemon";
 
-const { getPokemonPage, searchByName } = usePokemonHook();
+const { getPokemonPage, searchByName, getPokemon } = usePokemonHook();
 
 const page = ref(1);
 const pokemons = ref();
@@ -62,12 +46,24 @@ watch(pokemonSearch, (newValue) => {
   pokemons.value = searchByName(newValue);
 });
 
+/* const pokemon = async (pokemonId: number) => {
+  const poke = await getPokemon(pokemonId);
+  console.log(poke);
+  return poke;
+};
+pokemon(21); */
+
 const updateHandler = () => {
   pokemons.value = getPokemonPage(page.value);
 };
 
+const inputUpdated = (text: string) => {
+  pokemonSearch.value = text;
+};
+
 const resetSearch = () => {
   pokemonSearch.value = "";
+  page.value = 1;
   pokemons.value = getPokemonPage(1);
 };
 </script>

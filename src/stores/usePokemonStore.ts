@@ -1,12 +1,16 @@
 import { defineStore } from "pinia";
-import { getPokemons, paginatePokemons } from "@/helpers/pokemonHelper";
-import { PokemonList } from "@/interfaces/pokemon";
+import {
+  getPokemon,
+  getPokemons,
+  paginatePokemons,
+} from "@/helpers/pokemonHelper";
+import { Pokemon, PokemonList } from "@/interfaces/pokemon";
 
 interface PokemonState {
   isLoading: boolean;
   pokemons: PokemonList[];
   pokemonPagination: PokemonList[][];
-  // pokemon: Pokemon;
+  pokemon: Pokemon | null;
 }
 
 const usePokemonStore = defineStore("pokemonStore", {
@@ -14,7 +18,7 @@ const usePokemonStore = defineStore("pokemonStore", {
     isLoading: false,
     pokemons: [],
     pokemonPagination: [],
-    // pokemon: null,
+    pokemon: null,
   }),
   getters: {
     getPokemonPage:
@@ -49,7 +53,15 @@ const usePokemonStore = defineStore("pokemonStore", {
       } catch (error) {
         localStorage.removeItem("pokemons");
         console.error(error);
-        throw new Error("Error al obtener la lista de pokemons");
+        throw new Error("Error al obtener la lista de pokémons");
+      }
+    },
+    async getPokemon(pokemonId: number): Promise<Pokemon> | never {
+      try {
+        const pokemon = await getPokemon(pokemonId);
+        return pokemon;
+      } catch (error) {
+        throw new Error(`Error al obtener al pokémon: ${pokemonId}`);
       }
     },
   },

@@ -17,7 +17,7 @@ const getPokemons = async (): Promise<PokemonList[]> | never => {
     return pokemons;
   } catch (error) {
     console.error(error);
-    throw new Error("Error al obtener la lista de pokemons");
+    throw new Error("Error al obtener la lista de pokémons");
   }
 };
 
@@ -31,12 +31,14 @@ const paginatePokemons = (pokemons: PokemonList[]): PokemonList[][] => {
   return parts;
 };
 
-const getPokemon = async (pokemonId: number): Promise<Pokemon> => {
-  const { data } = await pokemonApi.get<Pokemon>(`/${pokemonId}`);
-
-  console.log(data);
-
-  return data;
+const getPokemon = async (pokemonId: number): Promise<Pokemon> | never => {
+  try {
+    const { data } = await pokemonApi.get<Pokemon>(`/${pokemonId}`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error al obtener al pokémon: ${pokemonId}`);
+  }
 };
 
 export { getPokemons, getPokemon, paginatePokemons };

@@ -12,6 +12,7 @@ const usePokemonHook = () => {
   return {
     getPokemonPage: (page: number) => pokemonStore.getPokemonPage(page),
     searchByName: (text: string) => pokemonStore.searchByName(text),
+    getPokemon: (pokemonId: number) => pokemonStore.getPokemon(pokemonId),
   };
 };
 
