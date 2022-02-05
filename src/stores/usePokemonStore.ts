@@ -77,8 +77,8 @@ const usePokemonStore = defineStore("pokemonStore", {
 
         const pokemonCache = localStorage.getItem(`pokemon-${pokemonId}`);
         if (pokemonCache) {
-          this.isLoadingPokedex = false;
           this.pokemon = JSON.parse(pokemonCache);
+          this.isLoadingPokedex = false;
           return JSON.parse(pokemonCache);
         }
 
@@ -108,13 +108,13 @@ const usePokemonStore = defineStore("pokemonStore", {
         this.isLoadingPokedex = false;
         localStorage.setItem(
           `pokemon-${pokemonId}`,
-          JSON.stringify(this.pokemon)
+          JSON.stringify({ ...pokedex })
         );
 
-        return pokedex;
+        return { ...pokedex };
       } catch (error) {
         this.pokemon = undefined;
-        console.log(error);
+        this.isLoadingPokedex = false;
         throw new Error(`Error al obtener al pokémon: ${pokemonId}`);
       }
     },
