@@ -1,3 +1,43 @@
+import { ChainModel, PlainEvolutionChain } from "@/interfaces/pokemon";
+import { planeEvolutionChain } from "@/helpers/pokemonHelper";
+
+interface ColorTypes {
+  name: string;
+  color: string;
+}
+
+export const pokemonColorTypes = (types: string[]) => {
+  const colors = types.map((type): ColorTypes => {
+    return (
+      pokemonTypes.find((color) => color.name == type) || {
+        name: type,
+        color: "bg-gray-400",
+      }
+    );
+  });
+  return colors;
+};
+
+export const randomText = (flavor_text_entries: string[]): string => {
+  const idx = Math.floor(Math.random() * (flavor_text_entries.length - 1));
+  return flavor_text_entries[idx];
+};
+
+export const processEvolutions = (
+  evolutions: ChainModel | null
+): PlainEvolutionChain[] => {
+  if (!evolutions) return [];
+  return planeEvolutionChain(evolutions);
+};
+
+export const decimetroToMetros = (value: number) => {
+  return `${value / 10} m`;
+};
+
+export const hectogramToKilos = (value: number) => {
+  return `${value / 10} kg`;
+};
+
 export const pokemonTypes = [
   {
     name: "normal",
