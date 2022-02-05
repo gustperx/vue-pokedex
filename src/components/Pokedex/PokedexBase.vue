@@ -18,11 +18,16 @@
           </div>
         </div>
 
-        <PokedexList :pokemons="pokemons"></PokedexList>
+        <PokedexList :pokemons="pokemons" @on:click="getPokemon"></PokedexList>
       </div>
 
-      <div class="basis-full bg-red-200">
-        <h3>Details</h3>
+      <div class="basis-full rounded-lg bg-gray-300 shadow-2xl">
+        <div v-if="!pokemon">Cargando Pokémon Inicial</div>
+        <PodekexInformation
+          v-else
+          :pokemon="pokemon"
+          :isLoadingPokedex="isLoadingPokedex"
+        />
       </div>
     </template>
   </div>
@@ -34,17 +39,19 @@ import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 import PokedexList from "./PokedexList.vue";
 import PokedexSearch from "./PokedexSearch.vue";
+import PodekexInformation from "./PodekexInformation.vue";
+
 import { usePokemon } from "@/composables/usePokemon";
 
 const {
   changeSearch,
+  getPokemon,
   isLoading,
+  isLoadingPokedex,
   page,
   paginateHandler,
   pokemon,
   pokemons,
   resetSearch,
 } = usePokemon();
-
-pokemon(15);
 </script>

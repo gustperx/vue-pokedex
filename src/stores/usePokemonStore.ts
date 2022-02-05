@@ -1,24 +1,31 @@
 import { defineStore } from "pinia";
 import {
+  formatPokemonSpecies,
   getPokemon,
+  getPokemonEvolutionChain,
+  getPokemonImageUrl,
   getPokemons,
+  getPokemonSpecies,
   paginatePokemons,
+  recursiveChain,
 } from "@/helpers/pokemonHelper";
-import { Pokemon, PokemonList } from "@/interfaces/pokemon";
+import { PokemonList, PokemonPokedex } from "@/interfaces/pokemon";
 
 interface PokemonState {
   isLoading: boolean;
+  isLoadingPokedex: boolean;
   pokemons: PokemonList[];
   pokemonPagination: PokemonList[][];
-  pokemon: Pokemon | null;
+  pokemon?: PokemonPokedex;
 }
 
 const usePokemonStore = defineStore("pokemonStore", {
   state: (): PokemonState => ({
     isLoading: false,
+    isLoadingPokedex: false,
     pokemons: [],
     pokemonPagination: [],
-    pokemon: null,
+    pokemon: undefined,
   }),
   getters: {
     getPokemonPage:
@@ -38,7 +45,7 @@ const usePokemonStore = defineStore("pokemonStore", {
       },
   },
   actions: {
-    async getPokemons(): Promise<void> | never {
+    async getPokemons(): Promise<PokemonList[]> | never {
       try {
         this.isLoading = true;
         const pokemons = localStorage.getItem("pokemons");
@@ -54,17 +61,60 @@ const usePokemonStore = defineStore("pokemonStore", {
 
         this.pokemonPagination = paginatePokemons([...this.pokemons]);
         this.isLoading = false;
+
+        return [...this.pokemons];
       } catch (error) {
+        this.isLoading = false;
+        this.pokemons = [];
         localStorage.removeItem("pokemons");
         console.error(error);
         throw new Error("Error al obtener la lista de pokémons");
       }
     },
-    async getPokemon(pokemonId: number): Promise<Pokemon> | never {
+    async getPokemon(pokemonId: number): Promise<PokemonPokedex> {
       try {
+        this.isLoadingPokedex = true;
+
+        const pokemonCache = localStorage.getItem(`pokemon-${pokemonId}`);
+        if (pokemonCache) {
+          this.isLoadingPokedex = false;
+          this.pokemon = JSON.parse(pokemonCache);
+          return JSON.parse(pokemonCache);
+        }
+
         const pokemon = await getPokemon(pokemonId);
-        return pokemon;
+        const species = await getPokemonSpecies(pokemon.species.url);
+        const evolutionChain = await getPokemonEvolutionChain(
+          species.evolution_chain.url
+        );
+
+        const pokedex = {
+          id: pokemon.id,
+          name: pokemon.name,
+          weight: pokemon.weight,
+          height: pokemon.height,
+          base_experience: pokemon.base_experience,
+          types: pokemon.types.map((type) => type.type.name),
+          stats: pokemon.stats.map((stat) => ({
+            name: stat.stat.name,
+            base_start: stat.base_stat,
+          })),
+          species: formatPokemonSpecies(species),
+          evolution_chain: recursiveChain(evolutionChain.chain),
+          imagen: getPokemonImageUrl(pokemon.id),
+        };
+
+        this.pokemon = { ...pokedex };
+        this.isLoadingPokedex = false;
+        localStorage.setItem(
+          `pokemon-${pokemonId}`,
+          JSON.stringify(this.pokemon)
+        );
+
+        return pokedex;
       } catch (error) {
+        this.pokemon = undefined;
+        console.log(error);
         throw new Error(`Error al obtener al pokémon: ${pokemonId}`);
       }
     },

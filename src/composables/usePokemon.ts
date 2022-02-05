@@ -1,5 +1,5 @@
 import { computed, ref, watch } from "vue";
-import { PokemonList } from "@/interfaces/pokemon";
+import { PokemonList, PokemonPokedex } from "@/interfaces/pokemon";
 import { usePokemonStore } from "@/stores/usePokemonStore";
 
 const usePokemon = () => {
@@ -14,24 +14,27 @@ const usePokemon = () => {
     pokemons.value = pokemonStore.searchByName(newValue);
   });
 
-  const pokemon = async (pokemonId: number) => {
-    const poke = await pokemonStore.getPokemon(pokemonId);
-    console.log(poke);
-    return poke;
+  const getPokemon = async (pokemonId: number) => {
+    const pokedex = await pokemonStore.getPokemon(pokemonId);
+    return pokedex;
   };
 
   const loadPokedex = async () => {
     await pokemonStore.getPokemons();
     pokemons.value = pokemonStore.getPokemonPage(1);
   };
+
   loadPokedex();
+  getPokemon(158);
 
   return {
     page,
     pokemons,
     pokemonSearch,
-    pokemon,
-    isLoading: computed(() => pokemonStore.isLoading),
+    pokemon: computed(() => <PokemonPokedex>pokemonStore.pokemon),
+    isLoading: computed(() => <boolean>pokemonStore.isLoading),
+    isLoadingPokedex: computed(() => pokemonStore.isLoadingPokedex),
+    getPokemon,
     paginateHandler: () =>
       (pokemons.value = pokemonStore.getPokemonPage(page.value)),
     changeSearch: (text: string) => (pokemonSearch.value = text),
