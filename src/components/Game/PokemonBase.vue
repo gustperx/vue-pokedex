@@ -13,7 +13,7 @@
     <template v-else>
       <div>
         <p class="text-2xl font-medium tracking-wide text-zinc-700">
-          ¿Who is that Pokemon?
+          ¿Who is that Pokémon?
         </p>
       </div>
 

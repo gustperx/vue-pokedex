@@ -14,6 +14,7 @@ const usePokemonGame = () => {
 
   const loadPokemons = async () => {
     await pokemonStore.loadPokemons();
+    startGame();
   };
 
   const startGame = () => {
@@ -56,7 +57,6 @@ const usePokemonGame = () => {
   };
 
   loadPokemons();
-  startGame();
 
   return {
     message,

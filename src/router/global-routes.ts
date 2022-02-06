@@ -3,7 +3,6 @@ const headerLinks = [
   { to: "pokedex", name: "Pokedex" },
   { to: "pokemon", name: "Pokemon Game" },
   { to: "about", name: "About" },
-  { to: "https://gustperx.com", name: "Gustperx" },
 ];
 
 const footerLinks = [
