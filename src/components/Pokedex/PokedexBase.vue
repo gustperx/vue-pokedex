@@ -16,7 +16,7 @@
       class="flex h-96 w-full flex-col items-center justify-start"
     >
       <div class="mt-16 text-center">
-        <h3 class="text-2xl">Loading Pokemon list</h3>
+        <h3 class="text-2xl">Loading Pokémon list</h3>
         <h4 class="mt-4 text-xl">Please wait</h4>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { computed, ref, watch } from "vue";
 import { PokemonList, PokemonPokedex } from "@/interfaces/pokemon";
 import { usePokemonStore } from "@/stores/usePokemonStore";
+import { getRandomPokemonId } from "@/helpers/pokemonHelper";
 
 const usePokemon = () => {
   const pokemonStore = usePokemonStore();
@@ -20,12 +21,12 @@ const usePokemon = () => {
   };
 
   const loadPokedex = async () => {
-    await pokemonStore.getPokemons();
+    await pokemonStore.loadPokemons();
     pokemons.value = pokemonStore.getPokemonPage(1);
   };
 
   loadPokedex();
-  getPokemon(158);
+  getPokemon(getRandomPokemonId());
 
   return {
     page,

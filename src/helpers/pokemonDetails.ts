@@ -73,7 +73,7 @@ export const pokemonTypes = [
   },
   {
     name: "steel",
-    color: "bg-teal-300",
+    color: "bg-teal-500",
   },
   {
     name: "fire",

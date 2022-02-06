@@ -13,7 +13,7 @@
 
     <div
       v-if="isLoadingPokedex"
-      class="flex h-screen w-full flex-col items-center justify-start"
+      class="relative flex h-[31rem] w-full flex-col items-center justify-start"
     >
       <div class="mt-16 text-center">
         <h3 class="text-2xl">Loading Pokémon</h3>
@@ -63,6 +63,7 @@
         <div class="basis-1/5 bg-gray-100">
           <div class="flex justify-center">
             <img
+              loading="lazy"
               class="mt-0 mr-8 h-32 w-32 md:mr-12 lg:mt-4 lg:mr-24"
               :src="pokemon.imagen"
               :alt="pokemon.name"
@@ -114,6 +115,7 @@
         >
           <div class="">
             <img
+              loading="lazy"
               class="h-20 w-20 md:h-32 md:w-32"
               :src="evolution.imagen"
               :alt="evolution.name"

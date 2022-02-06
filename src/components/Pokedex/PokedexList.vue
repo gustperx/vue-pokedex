@@ -8,7 +8,11 @@
           class="flex items-center gap-4 p-4"
           @click="showPokemon(pokemon.id)"
         >
-          <img class="h-20 w-20 rounded-sm" :src="pokemon.imagen" />
+          <img
+            class="h-20 w-20 rounded-sm"
+            :src="pokemon.imagen"
+            loading="lazy"
+          />
           <div class="flex flex-col">
             <strong class="text-lg font-medium text-slate-900">{{
               pokemon.name

@@ -25,18 +25,17 @@ export const getPokemons = async (): Promise<PokemonList[]> | never => {
     });
     return pokemons;
   } catch (error) {
-    console.error(error);
-    throw new Error("Error al obtener la lista de pokémons");
+    throw new Error("Error getting pokémon list");
   }
 };
 
 export const paginatePokemons = (pokemons: PokemonList[]): PokemonList[][] => {
-  const parts = [];
+  if (pokemons.length < 1) return [];
 
+  const parts = [];
   for (let index = 0; index < 65; index++) {
     parts.push(pokemons.splice(0, 10));
   }
-
   return parts;
 };
 
@@ -47,8 +46,7 @@ export const getPokemon = async (
     const { data } = await pokemonApi.get<Pokemon>(`/${pokemonId}`);
     return data;
   } catch (error) {
-    console.error(error);
-    throw new Error(`Error al obtener al pokémon: ${pokemonId}`);
+    throw new Error(`Error getting pokémon: ${pokemonId}`);
   }
 };
 
@@ -59,8 +57,7 @@ export const getPokemonSpecies = async (
     const { data } = await axios.get<PokemonSpecies>(url);
     return data;
   } catch (error) {
-    console.error(error);
-    throw new Error(`Error al obtener los detalles del pokémon`);
+    throw new Error(`Error getting pokémon species`);
   }
 };
 
@@ -72,7 +69,7 @@ export const getPokemonEvolutionChain = async (
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error(`Error al obtener los detalles de evolución del pokémon`);
+    throw new Error(`Error getting pokémon evolution details`);
   }
 };
 
@@ -160,6 +157,44 @@ const reduceEvolutionChain = (
 export const getPokemonImageUrl = (pokemonId: number): string => {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonId}.svg`;
 };
+
+export const getRandomPokemonId = (): number => {
+  const pokemonIds = getPokemonsStaticArr().sort(() => Math.random() - 0.5);
+  return pokemonIds.splice(0, 1)[0];
+};
+
+const getPokemonsStaticArr = (): number[] => {
+  const pokemonsArr = Array.from(Array(650));
+  return pokemonsArr.map((_, index) => index + 1);
+};
+
+/* const getPokemonOptions = async () => {
+  const mixedPokemons = getPokemonsStaticArr().sort(() => Math.random() - 0.5);
+
+  const pokemons = await getPokemonsName(mixedPokemons.splice(0, 4));
+
+  return pokemons;
+};
+
+const getPokemonsName = async ([a, b, c, d] = []) => {
+  const promiseArr = [
+    pokemonApi.get(`/${a}`),
+    pokemonApi.get(`/${b}`),
+    pokemonApi.get(`/${c}`),
+    pokemonApi.get(`/${d}`),
+  ];
+
+  const [pokemonA, pokemonB, pokemonC, pokemonD] = await Promise.all(
+    promiseArr
+  );
+
+  return [
+    { id: pokemonA.data.id, name: pokemonA.data.name },
+    { id: pokemonB.data.id, name: pokemonB.data.name },
+    { id: pokemonC.data.id, name: pokemonC.data.name },
+    { id: pokemonD.data.id, name: pokemonD.data.name },
+  ];
+}; */
 
 const getPositionInUrl = (
   elementToFind: string,

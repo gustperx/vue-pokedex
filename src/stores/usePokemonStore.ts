@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import Swal from "sweetalert2";
+
 import {
   formatPokemonSpecies,
   getPokemon,
@@ -32,6 +34,7 @@ const usePokemonStore = defineStore("pokemonStore", {
       (store) =>
       (page: number): PokemonList[] => {
         if (page < 1) return [];
+        if (store.pokemonPagination.length < 1) return [];
         const idxPokemon = page - 1;
         return [...store.pokemonPagination[idxPokemon]];
       },
@@ -45,33 +48,34 @@ const usePokemonStore = defineStore("pokemonStore", {
       },
   },
   actions: {
-    async getPokemons(): Promise<PokemonList[]> | never {
+    async loadPokemons(): Promise<void> {
       try {
         this.isLoading = true;
         const pokemons = localStorage.getItem("pokemons");
 
         if (pokemons) {
-          console.log("Pokemons desde LocalStorage");
           this.pokemons = JSON.parse(pokemons);
         } else {
-          console.log("Pokemons desde PokeApi");
           this.pokemons = await getPokemons();
           localStorage.setItem("pokemons", JSON.stringify(this.pokemons));
         }
 
         this.pokemonPagination = paginatePokemons([...this.pokemons]);
         this.isLoading = false;
-
-        return [...this.pokemons];
       } catch (error) {
         this.isLoading = false;
         this.pokemons = [];
         localStorage.removeItem("pokemons");
-        console.error(error);
-        throw new Error("Error al obtener la lista de pokémons");
+
+        Swal.fire({
+          title: "Oops!",
+          text: `${error}`,
+          icon: "error",
+          confirmButtonColor: "#0369a1",
+        });
       }
     },
-    async getPokemon(pokemonId: number): Promise<PokemonPokedex> {
+    async getPokemon(pokemonId: number): Promise<void> {
       try {
         this.isLoadingPokedex = true;
 
@@ -110,12 +114,16 @@ const usePokemonStore = defineStore("pokemonStore", {
           `pokemon-${pokemonId}`,
           JSON.stringify({ ...pokedex })
         );
-
-        return { ...pokedex };
       } catch (error) {
         this.pokemon = undefined;
         this.isLoadingPokedex = false;
-        throw new Error(`Error al obtener al pokémon: ${pokemonId}`);
+
+        Swal.fire({
+          title: "Oops!",
+          text: `${error}`,
+          icon: "error",
+          confirmButtonColor: "#0369a1",
+        });
       }
     },
   },

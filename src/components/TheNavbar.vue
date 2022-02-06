@@ -56,6 +56,7 @@
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <NavLink
+                :key="headerLink.name"
                 v-for="headerLink in headerLinks"
                 :to="headerLink.to"
                 :name="headerLink.name"
@@ -70,6 +71,7 @@
     <div v-if="isActiveMenuMobile" id="mobile-menu" class="sm:hidden">
       <div class="space-y-1 px-2 pt-2 pb-3">
         <NavLinkResponsive
+          :key="headerLink.name"
           v-for="headerLink in headerLinks"
           :to="headerLink.to"
           :name="headerLink.name"

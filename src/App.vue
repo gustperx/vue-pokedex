@@ -6,10 +6,9 @@ import TheFooter from "./components/TheFooter.vue";
 
 <template>
   <div class="min-h-full bg-slate-100">
+    <!-- <div class="flex h-screen min-h-full flex-col justify-between bg-slate-100"> -->
     <TheNavbar />
-
     <RouterView />
-
     <TheFooter />
   </div>
 </template>
