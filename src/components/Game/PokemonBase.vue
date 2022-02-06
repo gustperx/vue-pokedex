@@ -30,7 +30,7 @@
         </p>
         <button
           @click="startGame"
-          class="mt-2 bg-sky-600 py-1 px-2 text-sm font-medium text-slate-200 hover:bg-sky-700"
+          class="mt-2 rounded-xl bg-sky-600 py-1 px-2 text-sm font-medium text-slate-200 hover:bg-sky-700"
         >
           New game
         </button>
