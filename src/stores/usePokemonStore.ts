@@ -46,6 +46,16 @@ const usePokemonStore = defineStore("pokemonStore", {
         );
         return [...results];
       },
+    getRandomPokemonId: (store): number => {
+      return Math.abs(Math.floor(Math.random() * (store.pokemons.length - 1)));
+    },
+    getPokemonOptions: (store) => (): PokemonList[] => {
+      if (store.pokemons.length < 1) throw new Error("Pokémon list is empty");
+
+      const pokemonsList = [...store.pokemons];
+      const listSort = pokemonsList.sort(() => Math.random() - 0.5);
+      return listSort.splice(0, 4);
+    },
   },
   actions: {
     async loadPokemons(): Promise<void> {

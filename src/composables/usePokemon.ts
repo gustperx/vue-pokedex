@@ -1,7 +1,6 @@
 import { computed, ref, watch } from "vue";
 import { PokemonList, PokemonPokedex } from "@/interfaces/pokemon";
 import { usePokemonStore } from "@/stores/usePokemonStore";
-import { getRandomPokemonId } from "@/helpers/pokemonHelper";
 
 const usePokemon = () => {
   const pokemonStore = usePokemonStore();
@@ -26,7 +25,7 @@ const usePokemon = () => {
   };
 
   loadPokedex();
-  getPokemon(getRandomPokemonId());
+  getPokemon(pokemonStore.getRandomPokemonId);
 
   return {
     page,

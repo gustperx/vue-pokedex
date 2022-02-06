@@ -25,9 +25,9 @@
       <div class="m-4 flex h-48 shadow-md">
         <div class="basis-4/5 bg-gray-100">
           <p
-            class="mt-2 flex justify-center text-2xl font-semibold text-zinc-700"
+            class="mt-2 flex justify-center text-lg font-semibold text-zinc-700"
           >
-            {{ pokemon.name }}
+            {{ `#${pokemon.id} - ${pokemon.name}` }}
           </p>
           <p class="flex justify-center font-semibold text-zinc-700">
             {{ pokemon.species.genera[0] }}

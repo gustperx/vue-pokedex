@@ -155,27 +155,10 @@ const reduceEvolutionChain = (
 };
 
 export const getPokemonImageUrl = (pokemonId: number): string => {
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonId}.svg`;
-};
-
-export const getRandomPokemonId = (): number => {
-  const pokemonIds = getPokemonsStaticArr().sort(() => Math.random() - 0.5);
-  return pokemonIds.splice(0, 1)[0];
-};
-
-const getPokemonsStaticArr = (): number[] => {
-  const pokemonsArr = Array.from(Array(650));
-  return pokemonsArr.map((_, index) => index + 1);
-};
-
-export const getPokemonOptions = async () => {
-  try {
-    const pokemonsList = await getPokemons();
-    const listSort = pokemonsList.sort(() => Math.random() - 0.5);
-    return listSort.splice(0, 4);
-  } catch (error) {
-    throw new Error(`Getting pokémon options`);
+  if (pokemonId > 649) {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
   }
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonId}.svg`;
 };
 
 const getPositionInUrl = (

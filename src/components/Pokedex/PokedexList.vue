@@ -18,7 +18,7 @@
               pokemon.name
             }}</strong>
             <span class="text-lg font-medium text-slate-500">{{
-              pokemon.name
+              `#${pokemon.id}`
             }}</span>
           </div>
         </div>
