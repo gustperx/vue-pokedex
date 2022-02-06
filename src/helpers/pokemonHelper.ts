@@ -57,7 +57,7 @@ export const getPokemonSpecies = async (
     const { data } = await axios.get<PokemonSpecies>(url);
     return data;
   } catch (error) {
-    throw new Error(`Error getting pokémon species`);
+    throw new Error(`Getting pokémon species`);
   }
 };
 
@@ -69,7 +69,7 @@ export const getPokemonEvolutionChain = async (
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error(`Error getting pokémon evolution details`);
+    throw new Error(`Getting pokémon evolution details`);
   }
 };
 
@@ -168,33 +168,15 @@ const getPokemonsStaticArr = (): number[] => {
   return pokemonsArr.map((_, index) => index + 1);
 };
 
-/* const getPokemonOptions = async () => {
-  const mixedPokemons = getPokemonsStaticArr().sort(() => Math.random() - 0.5);
-
-  const pokemons = await getPokemonsName(mixedPokemons.splice(0, 4));
-
-  return pokemons;
+export const getPokemonOptions = async () => {
+  try {
+    const pokemonsList = await getPokemons();
+    const listSort = pokemonsList.sort(() => Math.random() - 0.5);
+    return listSort.splice(0, 4);
+  } catch (error) {
+    throw new Error(`Getting pokémon options`);
+  }
 };
-
-const getPokemonsName = async ([a, b, c, d] = []) => {
-  const promiseArr = [
-    pokemonApi.get(`/${a}`),
-    pokemonApi.get(`/${b}`),
-    pokemonApi.get(`/${c}`),
-    pokemonApi.get(`/${d}`),
-  ];
-
-  const [pokemonA, pokemonB, pokemonC, pokemonD] = await Promise.all(
-    promiseArr
-  );
-
-  return [
-    { id: pokemonA.data.id, name: pokemonA.data.name },
-    { id: pokemonB.data.id, name: pokemonB.data.name },
-    { id: pokemonC.data.id, name: pokemonC.data.name },
-    { id: pokemonD.data.id, name: pokemonD.data.name },
-  ];
-}; */
 
 const getPositionInUrl = (
   elementToFind: string,

@@ -22,7 +22,7 @@
     </div>
 
     <template v-else>
-      <div class="m-4 flex h-44 shadow-md">
+      <div class="m-4 flex h-48 shadow-md">
         <div class="basis-4/5 bg-gray-100">
           <p
             class="mt-2 flex justify-center text-2xl font-semibold text-zinc-700"
@@ -31,6 +31,9 @@
           </p>
           <p class="flex justify-center font-semibold text-zinc-700">
             {{ pokemon.species.genera[0] }}
+          </p>
+          <p class="flex justify-center font-semibold text-zinc-700">
+            Legendary: {{ pokemon.species.is_legendary ? "Yes" : "No" }}
           </p>
           <p class="flex justify-center font-semibold text-red-500">
             {{ pokemon.species.generation }}
@@ -134,6 +137,9 @@
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 
+import { PokemonPokedex } from "@/interfaces/pokemon";
+import PokedexTag from "./PokedexTag.vue";
+
 import {
   pokemonIconStat,
   randomText,
@@ -142,8 +148,6 @@ import {
   decimetroToMetros,
   hectogramToKilos,
 } from "@/helpers/pokemonDetails";
-import { PokemonPokedex } from "@/interfaces/pokemon";
-import PokedexTag from "./PokedexTag.vue";
 
 defineProps<{
   isLoadingPokedex: boolean;
