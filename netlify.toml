@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/img/*"
+  to = "https://res.cloudinary.com/dpfdgvz5b/image/upload/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

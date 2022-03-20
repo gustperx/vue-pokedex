@@ -14,13 +14,12 @@
         </div>
         <div class="mt-4 flex md:m-0">
           <div class="-mx-4">
-            <RouterLink
+            <NavLink
               v-for="footerLink in footerLinks"
               :key="footerLink.to"
-              class="px-4 text-sm"
-              :to="{ name: footerLink.to }"
-              >{{ footerLink.name }}</RouterLink
-            >
+              :to="footerLink.to"
+              :name="footerLink.name"
+            />
           </div>
         </div>
       </div>
@@ -29,6 +28,6 @@
 </template>
 
 <script lang="ts" setup>
-import { RouterLink } from "vue-router";
 import { footerLinks } from "@/router/global-routes";
+import NavLink from "./NavLink.vue";
 </script>

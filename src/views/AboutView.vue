@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import ThePokemonLayout from "@/components/ThePokemonLayout.vue";
 import ItemContact from "@/components/ItemContact.vue";
+import { useMedia } from "@/composables/useMedia";
+
+const { mediaCloudinary } = useMedia();
 </script>
 
 <template>
@@ -14,7 +17,7 @@ import ItemContact from "@/components/ItemContact.vue";
         <div class="basis-1/3">
           <div class="flex flex-col items-center justify-center">
             <img
-              src="https://gustperx.com/images/about_alt.png"
+              :src="mediaCloudinary('v1645481860/me/wqhrzgamalb9kl7nwifu.png')"
               class="mb-8 h-60 w-60 md:mb-0"
               alt="gustperx"
             />
@@ -23,21 +26,21 @@ import ItemContact from "@/components/ItemContact.vue";
 
         <div class="basis-2/3 text-zinc-700">
           <p class="my-4 text-2xl font-medium">
-            Hola, mi nombre es Gustavo Perez
+            Hello, my name is <span class="text-sky-700">Gustavo Perez</span>
           </p>
           <p class="mt-8 text-lg font-medium">
-            Soy desarrollador full-stack con más de 4 años de experiencia, me
-            dedico crear y mantener aplicaciones web principalmente como backend
-            developer en tecnologías como PHP (Laravel / CakePHP / Symfony) y
-            Node.js. También me desempeño como frontend developer con HTML, CSS
-            y Javascript así mismo frameworks y librerías como Vue.js, React,
-            Tailwind CSS y Bootstrap.
+            I am a full-stack developer with more than 4 years of experience, I
+            create and maintain web applications mainly as a backend developer
+            in technologies such as PHP (Laravel / CakePHP / Symfony) and
+            Node.js. I also work as a frontend developer with HTML, CSS and
+            Javascript as well as frameworks and libraries like Vue.js, React,
+            Tailwind CSS and Bootstrap.
           </p>
         </div>
       </div>
       <div class="flex flex-col items-center justify-center">
         <div class="my-12">
-          <p class="text-2xl font-medium">Contacto</p>
+          <p class="text-2xl font-medium">Contact</p>
         </div>
       </div>
       <div class="flex items-center justify-center">
