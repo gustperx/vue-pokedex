@@ -1,46 +1,42 @@
-# pokedex
+# Pokemon - Pokedex
 
-This template should help get you started developing with Vue 3 in Vite.
+## Gustavo Perez 🔥
 
-## Recommended IDE Setup
+Full Stack Developer | PHP - Laravel - Node.js - Javascript - Vue.js. - React
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+### https://gustperx.com
 
-## Type Support for `.vue` Imports in TS
+- Twitter: https://twitter.com/gustperx
+- Linkedin: https://www.linkedin.com/in/gustperx
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+---
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### [Pokedex](https://vue-pokemon-pokedex.netlify.app/): Application built with Vue 3 + TypeScript + Composition API that consumes the API of https://pokeapi.co/
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+---
 
-## Customize configuration
+## App Live Demo
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+👉 https://vue-pokemon-pokedex.netlify.app/
+
+---
 
 ## Project Setup
 
-```sh
+```markdown
+# Install
+
 npm install
-```
 
-### Compile and Hot-Reload for Development
+# Compile and Hot-Reload for Development
 
-```sh
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
+# Type-Check, Compile and Minify for Production
 
-```sh
 npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
+# Lint with [ESLint](https://eslint.org/)
 
-```sh
 npm run lint
 ```
